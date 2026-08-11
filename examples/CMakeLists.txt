@@ -1,15 +1,18 @@
 add_executable(cora_example main.cpp)
 target_link_libraries(cora_example CORA)
 
+add_executable(cora_vis cora_vis_test.cpp)
+target_link_libraries(cora_vis CORA)
+
 if(${ENABLE_VISUALIZATION})
   message(STATUS "Building CORAVis example")
-  add_executable(cora_vis cora_vis_test.cpp)
-  target_link_libraries(cora_vis CORA)
 endif()
 
 if(${ENABLE_PROFILING})
   target_compile_definitions(cora_example PRIVATE GPERFTOOLS)
   target_link_libraries(cora_example profiler)
+  target_compile_definitions(cora_vis PRIVATE GPERFTOOLS)
+  target_link_libraries(cora_vis profiler)
 endif()
 
 if(${PERFORM_EXPERIMENTS})

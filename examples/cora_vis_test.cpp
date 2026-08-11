@@ -9,10 +9,13 @@
 
 #include <thread> // NOLINT [build/c++11]
 
+#ifdef GPERFTOOLS
+#include <gperftools/profiler.h>
+#endif
+
 int main() {
   CORA::Problem problem =
-      CORA::parsePyfgTextToProblem("./bin/data/factor_graph_small.pyfg");
-  // "./bin/data/plaza2.pyfg");
+      CORA::parsePyfgTextToProblem("./bin/data/plaza2.pyfg");
   problem.updateProblemData();
 
   CORA::Matrix x0 = problem.getRandomInitialGuess();
@@ -21,7 +24,14 @@ int main() {
   bool verbose = false;
   bool log_iterates = true;
   CORA::CoraResult res;
+  #ifdef GPERFTOOLS
+    ProfilerStart("cora_plaza2_arm.prof");
+  #endif
   res = solveCORA(problem, x0, max_rank, verbose, log_iterates);
+
+  #ifdef GPERFTOOLS
+    ProfilerStop();
+  #endif
 
   std::cout << "Testing with Random initialization" << std::endl;
 
