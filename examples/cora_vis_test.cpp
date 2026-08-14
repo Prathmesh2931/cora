@@ -13,9 +13,14 @@
 #include <gperftools/profiler.h>
 #endif
 
-int main() {
-  CORA::Problem problem =
-      CORA::parsePyfgTextToProblem("./bin/data/plaza2.pyfg");
+int main(int argc, char** argv) {
+  // Default fallback path or command-line argument
+  std::string data_path = "./bin/data/plaza2.pyfg";
+  if (argc > 1) {
+    data_path = argv[1];
+  }
+
+  CORA::Problem problem = CORA::parsePyfgTextToProblem(data_path);
   problem.updateProblemData();
 
   CORA::Matrix x0 = problem.getRandomInitialGuess();
