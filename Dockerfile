@@ -26,6 +26,6 @@ RUN mkdir build && cd build && \
           -DENABLE_VISUALIZATION=OFF \
           -DENABLE_PROFILING=ON \
           -DBUILD_EXAMPLES=ON .. && \
-    make -j2 cora_vis
+    make -j3 cora_vis
 
 CMD ["/bin/bash", "-c", "cd build && /usr/bin/time -v ./bin/cora_vis"]

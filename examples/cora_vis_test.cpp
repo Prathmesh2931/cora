@@ -27,12 +27,13 @@ int main(int argc, char** argv) {
 
   int max_rank = 10;
   bool verbose = false;
-  bool log_iterates = true;
+  bool log_iterates = false;
+  bool show_iterates = true;
   CORA::CoraResult res;
   #ifdef GPERFTOOLS
     ProfilerStart("cora_plaza2_arm.prof");
   #endif
-  res = solveCORA(problem, x0, max_rank, verbose, log_iterates);
+  res = solveCORA(problem, x0, max_rank, verbose, log_iterates, show_iterates);
 
   #ifdef GPERFTOOLS
     ProfilerStop();
